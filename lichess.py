@@ -23,7 +23,8 @@ ENDPOINTS = {
     "accept": "/api/challenge/{}/accept",
     "decline": "/api/challenge/{}/decline",
     "upgrade": "/api/bot/account/upgrade",
-    "resign": "/api/bot/game/{}/resign"
+    "resign": "/api/bot/game/{}/resign",
+    "make":"/api/challenge/{}"
 }
 
 # docs: https://lichess.org/api
@@ -109,3 +110,7 @@ class Lichess():
     def set_user_agent(self, username):
         self.header.update({"User-Agent": "lichess-bot/{} user:{}".format(self.version, username)})
         self.session.headers.update(self.header)
+     	
+    def createchlng(self,rated,uname,time,incr):
+	payload={'rated':rated,'clock':{'limit':time,'incremement':incr}}
+	return self.api_post(ENDPOINTS["make"].format(uname), data=payload)
