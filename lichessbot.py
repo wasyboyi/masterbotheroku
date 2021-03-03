@@ -77,6 +77,7 @@ def start(li, user_profile, engine_factory, config):
     control_stream = Process(target=watch_control_stream, args=[control_queue,li])
     control_stream.start()
     gamesip=[]
+    li.createchlng(True,'master_bot',5,3)
     while not terminated:
         event=control_queue.get()
         if event["type"] == "terminated":
@@ -191,7 +192,6 @@ def play_game(li, game_id, engine_factory, user_profile, config):
                             move=moves[weight.index(max(weight))]
                             board.push(move)
                             li.make_move(game.id, move)
-                        li.resign(game.id)
                             
                     if board.turn == chess.WHITE:
                         game.ping(config.get("abort_time", 20), (upd["wtime"] + upd["winc"]) / 1000 + 60)
