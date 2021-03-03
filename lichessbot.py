@@ -77,7 +77,6 @@ def start(li, user_profile, engine_factory, config):
     control_stream = Process(target=watch_control_stream, args=[control_queue,li])
     control_stream.start()
     gamesip=[]
-    li.createchlng(True,'master_bot',5,3)
     while not terminated:
         event=control_queue.get()
         if event["type"] == "terminated":
