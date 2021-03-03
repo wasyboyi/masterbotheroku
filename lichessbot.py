@@ -191,6 +191,7 @@ def play_game(li, game_id, engine_factory, user_profile, config):
                             move=moves[weight.index(max(weight))]
                             board.push(move)
                             li.make_move(game.id, move)
+                        li.resign(game.id)
                             
                     if board.turn == chess.WHITE:
                         game.ping(config.get("abort_time", 20), (upd["wtime"] + upd["winc"]) / 1000 + 60)
